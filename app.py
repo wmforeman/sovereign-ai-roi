@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS for UI polish
+# Custom CSS
 st.markdown("""
     <style>
     .metric-container {
@@ -25,7 +25,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- DATA LOADING ---
+# --- LOAD DATA ---
 @st.cache_data
 def load_data():
     try:
@@ -34,13 +34,9 @@ def load_data():
     except FileNotFoundError:
         return []
 
-all_hardware = load_data()
+systems = load_data()
 
-# Filter data into categories
-compute_options = [item for item in all_hardware if item.get('category') == 'compute']
-storage_options = [item for item in all_hardware if item.get('category') == 'storage']
-
-# --- SIDEBAR CONFIG ---
+# --- SIDEBAR ---
 with st.sidebar:
     st.header("⚙️ Configuration")
     
@@ -57,108 +53,88 @@ with st.sidebar:
         "Electricity Rate ($/kWh)", 
         value=0.18, 
         format="%.2f",
-        help="Check your utility bill. Average US rate is ~$0.16."
+        help="Average US rate is ~$0.16. California is ~$0.32."
     )
-    st.markdown("[Find your local rate ↗](https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a)", unsafe_allow_html=True)
+    st.markdown("[Find your local rate ↗](https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a)")
     
     st.divider()
-    st.caption("v3.0 - Sovereign Builder Edition")
+    st.caption("v4.0 - Systems Edition")
 
-# --- MAIN PAGE INTRO ---
+# --- MAIN PAGE ---
 st.title("🛡️ Sovereign AI ROI Calculator")
 
 st.info("""
-**What is this tool?** This calculator helps you decide if you should **Rent** AI (Cloud APIs) or **Own** AI (Local Hardware).  
-By inputting your monthly cloud spend and building a virtual 'Local Stack' below, you can see exactly how many months it takes for the hardware to pay for itself.
+**Rent vs. Buy:** This tool compares the cost of renting AI (OpenAI/Anthropic) vs. building your own **Private AI Lab**.
+Select a system below to see how fast it pays for itself.
 """)
 
 st.divider()
 
-# --- HARDWARE BUILDER ---
-st.subheader("🛠️ Build Your Local Stack")
+# --- SYSTEM SELECTOR ---
+st.subheader("🖥️ Choose Your Sovereign System")
 
-col1, col2 = st.columns([1, 1])
+col_left, col_right = st.columns([1, 1])
 
-# Column 1: Compute (The Brain)
-with col1:
-    st.markdown("### 1. Select Compute Node")
-    compute_titles = [item['title'] for item in compute_options]
-    selected_compute_title = st.selectbox("Choose GPU/System:", compute_titles)
+with col_left:
+    system_titles = [item['title'] for item in systems]
+    selected_system = st.selectbox("Select a Turnkey Rig:", system_titles)
     
-    # Get Compute Details
-    compute_item = next(i for i in compute_options if i['title'] == selected_compute_title)
+    # Get Details
+    item = next(i for i in systems if i['title'] == selected_system)
     
-    st.caption(f"**Specs:** {compute_item.get('description')}")
-    st.write(f"**Watts:** {compute_item['watts']}W | **Price:** ${compute_item['price']:,.2f}")
-
-# Column 2: Storage (The Body)
-with col2:
-    st.markdown("### 2. Add Storage")
-    storage_titles = [item['title'] for item in storage_options]
-    selected_storage_title = st.selectbox("Choose Storage Drive:", storage_titles)
+    st.markdown(f"#### {item['title']}")
+    st.caption(f"**Best For:** {item.get('description')}")
+    st.write(f"**Power Draw:** {item['watts']}W | **Est. Price:** ${item['price']:,.2f}")
     
-    # Get Storage Details
-    storage_item = next(i for i in storage_options if i['title'] == selected_storage_title)
-    
-    if storage_item['price'] > 0:
-        st.caption(f"**Specs:** {storage_item.get('description')}")
-        st.write(f"**Watts:** {storage_item['watts']}W | **Price:** ${storage_item['price']:,.2f}")
+    st.link_button(f"👉 Check Price / Buy on Amazon", item['link'])
 
-# Calculate Totals
-total_hardware_cost = compute_item['price'] + storage_item['price']
-total_watts = compute_item['watts'] + storage_item['watts']
-monthly_power_cost = (total_watts / 1000) * 24 * 30 * kwh_cost
-
-st.divider()
-
-# --- FINANCIAL RESULTS ---
-st.subheader("💸 Financial Analysis")
-
-results_col1, results_col2, results_col3 = st.columns(3)
-
-# Metrics
-results_col1.metric("Total Build Cost", f"${total_hardware_cost:,.2f}", delta="One-time Capex", delta_color="inverse")
-results_col2.metric("Monthly Power Cost", f"${monthly_power_cost:.2f}", delta="Recurring Opex", delta_color="off")
-
-# ROI Math
+# --- FINANCIAL MATH ---
+monthly_power_cost = (item['watts'] / 1000) * 24 * 30 * kwh_cost
 monthly_savings = cloud_cost - monthly_power_cost
+
 if monthly_savings <= 0:
     break_even_months = 999
-    results_col3.metric("Net Monthly Savings", f"${monthly_savings:.2f}", delta="Negative ROI", delta_color="inverse")
-    st.error(f"⚠️ **Not Profitable:** Your power costs (${monthly_power_cost:.2f}) exceed your cloud budget (${cloud_cost}). You need cheaper power or a smaller rig.")
 else:
-    break_even_months = total_hardware_cost / monthly_savings
-    results_col3.metric("Net Monthly Savings", f"${monthly_savings:.2f}", delta="Profit", delta_color="normal")
+    break_even_months = item['price'] / monthly_savings
+
+# --- RESULTS ---
+with col_right:
+    st.markdown("### 💸 ROI Analysis")
     
-    if break_even_months < 18:
-        st.success(f"✅ **Great Investment:** This build pays for itself in **{break_even_months:.1f} Months**.")
+    r1, r2, r3 = st.columns(3)
+    r1.metric("System Cost", f"${item['price']:,.0f}", delta="One-time", delta_color="inverse")
+    r2.metric("Monthly Power", f"${monthly_power_cost:.2f}", delta="Recurring", delta_color="off")
+    
+    if monthly_savings > 0:
+        r3.metric("Monthly Savings", f"${monthly_savings:.2f}", delta="Profit", delta_color="normal")
+        
+        if break_even_months < 12:
+            st.success(f"✅ **Instant Win:** Pays off in **{break_even_months:.1f} Months**.")
+        elif break_even_months < 24:
+            st.info(f"⚖️ **Solid Investment:** Pays off in **{break_even_months:.1f} Months**.")
+        else:
+            st.warning(f"⏳ **Long Game:** Pays off in **{break_even_months:.1f} Months**.")
     else:
-        st.warning(f"⚖️ **Long Term Play:** Break-even is **{break_even_months:.1f} Months**.")
+        r3.metric("Net Loss", f"${monthly_savings:.2f}", delta="Negative", delta_color="inverse")
+        st.error("⚠️ **Not Profitable:** Your power costs are higher than your cloud budget.")
 
 # --- CHART ---
+st.divider()
 st.subheader("📈 The Break-Even Chart")
+
 months = list(range(1, 37))
 cloud_cum = [cloud_cost * m for m in months]
-local_cum = [total_hardware_cost + (monthly_power_cost * m) for m in months]
+local_cum = [item['price'] + (monthly_power_cost * m) for m in months]
 
 chart_df = pd.DataFrame({
     "Month": months,
     "Cloud Rent (Burned)": cloud_cum,
-    "Local Hardware (Owned)": local_cum
+    "Private AI (Asset)": local_cum
 })
 
 st.line_chart(
     chart_df, 
     x="Month", 
-    y=["Cloud Rent (Burned)", "Local Hardware (Owned)"],
+    y=["Cloud Rent (Burned)", "Private AI (Asset)"],
     color=["#FF4B4B", "#00FF00"]
 )
-
-# --- BUY BUTTONS ---
-st.subheader("🛒 Ready to Build?")
-b1, b2 = st.columns(2)
-with b1:
-    st.link_button(f"Buy {compute_item['title']} on Amazon", compute_item['link'])
-with b2:
-    if storage_item['price'] > 0:
-        st.link_button(f"Buy {storage_item['title']} on Amazon", storage_item['link'])

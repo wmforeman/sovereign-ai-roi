@@ -1,98 +1,58 @@
 [
   {
-    "title": "NVIDIA RTX 4090 (24GB VRAM)",
-    "price": 1799.99,
-    "watts": 450,
-    "category": "compute",
-    "link": "https://www.amazon.com/s?k=RTX+4090&tag=lablocker-20",
-    "description": "The Gold Standard. Runs Llama-3 70B (quantized) and huge image generation models fast."
+    "title": "Starter: Raspberry Pi 5 AI Kit (8GB)",
+    "price": 110.00,
+    "watts": 15,
+    "link": "https://www.amazon.com/s?k=raspberry+pi+5+8gb+starter+kit&tag=lablocker-20",
+    "description": "The Learning Curve. Runs tiny models (Phi-3, TinyLlama). Perfect for learning Linux and Python."
   },
   {
-    "title": "NVIDIA RTX 3090 (Used/Refurb - 24GB)",
-    "price": 850.00,
-    "watts": 350,
-    "category": "compute",
-    "link": "https://www.amazon.com/s?k=RTX+3090&tag=lablocker-20",
-    "description": "The Budget King. Same VRAM as 4090 but half the price. Slower, but perfect for starters."
+    "title": "Entry Mac: Mac Mini M4 (16GB RAM)",
+    "price": 599.00,
+    "watts": 30,
+    "link": "https://www.amazon.com/s?k=mac+mini+m4+16gb&tag=lablocker-20",
+    "description": "The best value in AI right now. Runs 7B and 8B models (Llama-3, Mistral) incredibly fast and silent."
   },
   {
-    "title": "Apple Mac Studio (M2 Ultra - 192GB RAM)",
-    "price": 5499.00,
-    "watts": 100,
-    "category": "compute",
-    "link": "https://www.amazon.com/dp/B0C7679438?tag=lablocker-20",
-    "description": "Memory Monster. The only way to run massive 120B+ parameter models locally without a server rack."
-  },
-  {
-    "title": "Apple Mac Mini (M4 Pro - 32GB RAM)",
-    "price": 1599.00,
+    "title": "Pro Mac: Mac Mini M4 Pro (64GB RAM)",
+    "price": 1399.00,
     "watts": 50,
-    "category": "compute",
-    "link": "https://www.amazon.com/s?k=Mac+Mini+M4+Pro&tag=lablocker-20",
-    "description": "The Efficient Edge. Perfect for 7B/13B models and 24/7 distinct agents."
+    "link": "https://www.amazon.com/s?k=mac+mini+m4+pro+64gb&tag=lablocker-20",
+    "description": "The 'Local Llama' Sweet Spot. 64GB Unified Memory lets you run 70B parameter models comfortably."
   },
   {
-    "title": "Dual RTX 3090 Rig (48GB VRAM Total)",
-    "price": 2500.00,
-    "watts": 750,
-    "category": "compute",
-    "link": "https://www.amazon.com/s?k=RTX+3090&tag=lablocker-20",
-    "description": "The 'Split' Strategy. Run 70B models comfortably by splitting them across two cards."
+    "title": "The Beast: Mac Studio M2 Ultra (192GB)",
+    "price": 5599.00,
+    "watts": 110,
+    "link": "https://www.amazon.com/dp/B0C7679438?tag=lablocker-20",
+    "description": "Enterprise Grade. The only consumer hardware that can run massive 120B+ models (Grok, Llama-3-400B) entirely in RAM."
   },
   {
-    "title": "Used Dell R730 Server (Tesla P40 24GB)",
-    "price": 600.00,
-    "watts": 200,
-    "category": "compute",
-    "link": "https://www.amazon.com/s?k=Dell+R730&tag=lablocker-20",
-    "description": "The Loud Laboratory. Enterprise gear for cheap. Warning: It's loud and hot."
+    "title": "PC Build: Budget King (Used RTX 3090)",
+    "price": 1200.00,
+    "watts": 450,
+    "link": "https://www.amazon.com/s?k=rtx+3090+graphics+card&tag=lablocker-20",
+    "description": "High risk, high reward. 24GB VRAM for cheap. Requires building a PC around a used GPU."
   },
   {
-    "title": "No Additional Storage",
-    "price": 0,
-    "watts": 0,
-    "category": "storage",
-    "link": "https://www.amazon.com?tag=lablocker-20",
-    "description": "I'll stick with the boot drive."
+    "title": "PC Build: The Gamer (RTX 4090 24GB)",
+    "price": 3200.00,
+    "watts": 600,
+    "link": "https://www.amazon.com/s?k=rtx+4090+pc&tag=lablocker-20",
+    "description": "Maximum Speed. The fastest inference you can get for a home lab. Great for image generation (Flux, SDXL)."
   },
   {
-    "title": "22TB WD Red Pro NAS Drive",
-    "price": 399.99,
-    "watts": 7,
-    "category": "storage",
-    "link": "https://www.amazon.com/dp/B0B5W168DD?tag=lablocker-20",
-    "description": "Data Hoarder. Store the entire internet (almost)."
+    "title": "Server: Used Dell R730 (Tesla P40)",
+    "price": 700.00,
+    "watts": 300,
+    "link": "https://www.amazon.com/s?k=dell+r730+server&tag=lablocker-20",
+    "description": "The Loud Option. Enterprise rack server. Noisy, power hungry, but 24GB VRAM for very cheap."
   },
   {
-    "title": "12TB Seagate IronWolf (Value Pick)",
-    "price": 219.00,
-    "watts": 6,
-    "category": "storage",
-    "link": "https://www.amazon.com/s?k=Seagate+Ironwolf+12tb&tag=lablocker-20",
-    "description": "Sweet Spot. Good balance of price per TB."
-  },
-  {
-    "title": "4TB NVMe SSD (Gen 4 - Fast)",
-    "price": 249.00,
-    "watts": 3,
-    "category": "storage",
-    "link": "https://www.amazon.com/s?k=4tb+nvme&tag=lablocker-20",
-    "description": "Speed Demon. For loading models instantly."
-  },
-  {
-    "title": "RAID 5 Array (3x 12TB Drives)",
-    "price": 657.00,
-    "watts": 18,
-    "category": "storage",
-    "link": "https://www.amazon.com/s?k=Seagate+Ironwolf+12tb&tag=lablocker-20",
-    "description": "Redundancy. If one drive fails, you lose nothing."
-  },
-  {
-    "title": "Raspberry Pi 5 (8GB) - Starter Node",
-    "price": 80.00,
-    "watts": 5,
-    "category": "compute",
-    "link": "https://www.amazon.com/s?k=raspberry+pi+5+8gb&tag=lablocker-20",
-    "description": "The Toy. Good for learning, bad for serious AI."
+    "title": "Tiny PC: Minisforum UM790 (64GB RAM)",
+    "price": 850.00,
+    "watts": 65,
+    "link": "https://www.amazon.com/s?k=minisforum+64gb&tag=lablocker-20",
+    "description": "The Mac Alternative. Small, silent, x86 Windows/Linux box. Good for mid-sized models."
   }
 ]
