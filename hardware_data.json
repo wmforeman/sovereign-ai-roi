@@ -1,0 +1,26 @@
+[
+  {
+    "title": "NVIDIA GeForce RTX 4090 (24GB)",
+    "price": "$1,799.99",
+    "image": "https://m.media-amazon.com/images/I/715M+T8yvjL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0BG9G575L?tag=lablocker-20",
+    "category": "gpu",
+    "description": "The Gold Standard. Runs Llama-3 70B (quantized) and huge image generation models fast."
+  },
+  {
+    "title": "Apple Mac Studio (M2 Ultra 192GB)",
+    "price": "$5,499.00",
+    "image": "https://m.media-amazon.com/images/I/616z+D+f+HL._AC_SL1500_.jpg",
+    "link": "https://www.amazon.com/dp/B0C7679438?tag=lablocker-20",
+    "category": "mac",
+    "description": "Memory King. The only way to run massive 120B+ parameter models locally without a server rack."
+  },
+  {
+    "title": "Starter Lab: 22TB WD Red Pro",
+    "price": "$399.99",
+    "image": "https://m.media-amazon.com/images/I/71c+gI+L+rL._AC_SX679_.jpg",
+    "link": "https://www.amazon.com/dp/B0B5W168DD?tag=lablocker-20",
+    "category": "storage",
+    "description": "Data Hoarder Special. Perfect for storing local datasets and backups."
+  }
+]
